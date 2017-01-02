@@ -3,6 +3,8 @@ Camera = require "camera"
 --Valid gameStates: "Main menu", "Loadout"
 gameState = "Main menu"
 mainMenuIndex = 0
+playerName = ""
+
 
 function love.load()
 
@@ -27,22 +29,29 @@ function love.draw()
 		love.graphics.setFont(love.graphics.newFont("fonts/PressStart2P.ttf", 48))
 		love.graphics.print("Dank game", 200, 150)
 		
-		--Draw state select and arrow
-		love.graphics.setFont(love.graphics.newFont("fonts/PressStart2P.ttf", 32))
-		if mainMenuIndex == 0 then --Start
-			love.graphics.print("-> Start\n   Loadout\n   Settings\n   Exit", 200, 250)
+		if playerName ~= "" then
+			--Draw state select and arrow
+			love.graphics.setFont(love.graphics.newFont("fonts/PressStart2P.ttf", 32))
+			if mainMenuIndex == 0 then --Start
+				love.graphics.print("-> Start\n   Loadout\n   Settings\n   Exit", 200, 250)
+			end
+			if mainMenuIndex == 1 then --Loadout
+				love.graphics.print("   Start\n-> Loadout\n   Settings\n   Exit", 200, 250)
+			end
+			if mainMenuIndex == 2 then --Settings
+				love.graphics.print("   Start\n   Loadout\n-> Settings\n   Exit", 200, 250)
+			end
+			if mainMenuIndex == 3 then --Exit
+				love.graphics.print("   Start\n   Loadout\n   Settings\n-> Exit", 200, 250)
+			end
+		else
+			love.graphics.setFont(love.graphics.newFont("fonts/PressStart2P.ttf", 32))
+			love.graphics.print("What's your name?", 150, 250)
 		end
-		if mainMenuIndex == 1 then --Loadout
-			love.graphics.print("   Start\n-> Loadout\n   Settings\n   Exit", 200, 250)
-		end
-		if mainMenuIndex == 2 then --Settings
-			love.graphics.print("   Start\n   Loadout\n-> Settings\n   Exit", 200, 250)
-		end
-		if mainMenuIndex == 3 then --Exit
-			love.graphics.print("   Start\n   Loadout\n   Settings\n-> Exit", 200, 250)
-		end
-		
 		cam:detach()
+	end
+	if gameState=="Loadout" then
+		
 	end
 end
 
@@ -50,6 +59,7 @@ end
 
 function love.keypressed(key, scancode, isrepeat)
 	if gameState=="Main menu" then
+	
 	
 		--Selection movement
 		if key=="down" then
@@ -81,5 +91,8 @@ function love.keypressed(key, scancode, isrepeat)
 			end
 
 		end
+	end
+	if gameState=="Loadout" then
+		
 	end
 end
